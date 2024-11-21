@@ -1,0 +1,41 @@
+.input-form-container {
+  padding: 20px;
+  background-color: #AB886D;  /* Set the background color */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ant-form-item-label {
+  font-weight: bold;
+}
+
+.ant-input, .ant-btn {
+  border-radius: 8px;
+}
+
+.ant-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #d9d9d9;
+}
+
+.ant-btn-primary {
+  background-color: #000000;  
+  border-color: #ff5722;      
+}
+
+.ant-btn-primary:hover {
+  background-color: #e64a19;  
+  border-color: #e64a19;      
+}
+
+.alert-container {
+  margin-top: 10px;
+  color: #ff4d4f;  
+}
+
+.alert-container .ant-alert {
+  background-color: rgba(255, 77, 79, 0.1);  
+  border-color: #ff4d4f;
+}
+

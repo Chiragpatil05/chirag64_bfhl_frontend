@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import InputForm from "./components/InputForm";
 import MultiFilterDropdown from "./components/MultiFilterDropdown";
-import { Typography, Spin, Alert } from "antd";
+import { Typography, Spin, Alert, ConfigProvider, Layout, Row, Col } from "antd";
 
 const { Title } = Typography;
+const { Content, Footer } = Layout;
 
 const App = () => {
   const [apiResponse, setApiResponse] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
 
   const handleSubmit = async (data) => {
     setError("");
@@ -41,8 +41,6 @@ const App = () => {
     }
   };
 
-
-
   const handleFilterChange = (selectedFilters) => {
     const filtered = {};
     if (selectedFilters.includes("Numbers")) filtered.numbers = apiResponse.numbers || [];
@@ -53,31 +51,82 @@ const App = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <Title style={{ textAlign: "center" }}>JSON Input and Filter</Title>
-      <InputForm onSubmit={handleSubmit} />
-      {loading && (
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <Spin size="large" />
-        </div>
-      )}
-      {error && (
-        <div style={{ marginTop: "20px" }}>
-          <Alert message="Error" description={error} type="error" showIcon />
-        </div>
-      )}
-      {apiResponse.numbers && !loading && !error && (
-        <div style={{ margin: "20px" }}>
-          <MultiFilterDropdown onChange={handleFilterChange} />
-          <div style={{ marginTop: "10px" }}>
-            <Title level={4}>Filtered Response:</Title>
-            <pre style={{ background: "#f6f8fa", padding: "10px", borderRadius: "5px" }}>
-              {JSON.stringify(filteredData, null, 2)}
-            </pre>
-          </div>
-        </div>
-      )}
-    </div>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "black",
+          borderRadius: 8,
+          colorLink: "black",
+        },
+      }}
+    >
+      <Layout style={{ minHeight: "100vh", background: "#f0f2f5" }}>
+        <Content style={{ padding: "40px" }}>
+          <Row gutter={24}>
+            {/* Left Column: Input Form */}
+            <Col xs={24} md={12}>
+              <div
+                style={{
+                  padding: "20px",
+                  background: "#AB886D",  
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                }}
+              >
+                <Title style={{ textAlign: "center", color: "black" }}>JSON Input and Filter</Title>
+                <InputForm onSubmit={handleSubmit} />
+                {loading && (
+                  <div style={{ textAlign: "center", marginTop: "20px" }}>
+                    <Spin size="large" />
+                  </div>
+                )}
+                {error && (
+                  <div style={{ marginTop: "20px" }}>
+                    <Alert message="Error" description={error} type="error" showIcon />
+                  </div>
+                )}
+              </div>
+            </Col>
+
+            
+            <Col xs={24} md={12}>
+              <div
+                style={{
+                  padding: "20px",
+                  background: "#AB886D",  
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                }}
+              >
+                <Title level={4} style={{ color: "black" }}>Filtered Response:</Title>
+                {apiResponse.numbers && !loading && !error ? (
+                  <>
+                    <MultiFilterDropdown onChange={handleFilterChange} />
+                    <div style={{ marginTop: "20px" }}>
+                      <pre
+                        style={{
+                          background: "#f6f8fa",
+                          padding: "10px",
+                          borderRadius: "5px",
+                          border: "1px solid #d9d9d9",
+                        }}
+                      >
+                        {JSON.stringify(filteredData, null, 2)}
+                      </pre>
+                    </div>
+                  </>
+                ) : (
+                  <p style={{ textAlign: "center", color: "black" }}>No response to display yet.</p>
+                )}
+              </div>
+            </Col>
+          </Row>
+        </Content>
+        <Footer style={{ textAlign: "center", background: "rgb(171, 136, 109)", color: "black" }}>
+          Made By ~ Chirag Patil (0827CS211064)
+        </Footer>
+      </Layout>
+    </ConfigProvider>
   );
 };
 

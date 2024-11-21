@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Alert } from "antd";
 
+
 const InputForm = ({ onSubmit }) => {
   const [jsonInput, setJsonInput] = useState("");
   const [error, setError] = useState("");
@@ -29,7 +30,7 @@ const InputForm = ({ onSubmit }) => {
             placeholder='Enter JSON, e.g., {"data":["A","B","C"]}'
           />
         </Form.Item>
-        <Button type="primary" htmlType="submit" block>
+        <Button  type="primary" htmlType="submit" block >
           Submit
         </Button>
       </Form>
